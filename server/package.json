@@ -19,11 +19,14 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
+    "webpack-merge": "^5.1.1",
     "webpack-node-externals": "^2.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0"
