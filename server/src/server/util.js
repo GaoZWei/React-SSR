@@ -1,26 +1,35 @@
 import React from 'react'
 import {
-    StaticRouter
+    StaticRouter, Route
 } from 'react-router-dom'
-import Routes from '../Routes'
 import {
     renderToString
 } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import getStore from '../store';
-
-export const render = (req) => {
+//作为模板渲染
+export const render = (store, routes, req) => {
     const content = renderToString((
-        //Static不会自动识别 //context数据传递
-        <Provider store={getStore()}>
-            <StaticRouter location={req.path} context={{}}>{Routes}</StaticRouter>
+        //Static不会自动识别   //context数据传递
+        <Provider store={store}>
+            <StaticRouter location={req.path} context={{}}>
+                <div>
+                    {routes.map(route => (<Route {...route} /> //{}后面的是property属性,解构!!
+                    ))}
+                </div>
+            </StaticRouter>
         </Provider>
     ))
+    //window.context 数据注水
     return `<html>
     <head><title>React的SSR渲染</title></head>
     <body>
         <div id='root'>${content}</div>
+        <script>
+        window.context={
+            state:${JSON.stringify(store.getState())}
+        }
+        </script>
+        <script src="/index.js"></script>
         </body>
-    <script src="/index.js"></script>
     </html>`
 }

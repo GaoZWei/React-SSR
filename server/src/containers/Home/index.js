@@ -23,8 +23,16 @@ class Home extends Component {
     }
     //只会客户端渲染会执行
     componentDidMount() {
-        this.props.getHomeList()
+        //必须有,服务器渲染只是第一次!!!解决加载其他页,跳转的问题
+        if (!this.props.list.length) {
+            this.props.getHomeList()
+        }
     }
+}
+
+Home.loadData = (store) => {
+    //这个函数负责在服务器端渲染之前,把这个路由器需要的数据提前加载好
+    return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = state => ({
