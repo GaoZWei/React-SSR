@@ -7,7 +7,7 @@ class Home extends Component {
     getList() {
         const { list } = this.props
         return list.map((item) => {
-            return <div key={item.sid}>{item.name} </div>
+            return <div key={item.id}> 登录名:{item.login} </div>
         })
     }
     render() {
@@ -25,14 +25,14 @@ class Home extends Component {
     componentDidMount() {
         //必须有,服务器渲染只是第一次!!!解决加载其他页,跳转的问题
         if (!this.props.list.length) {
-            this.props.getHomeList()
+            this.props.getHomeList(false)
         }
     }
 }
 
 Home.loadData = (store) => {
     //这个函数负责在服务器端渲染之前,把这个路由器需要的数据提前加载好
-    return store.dispatch(getHomeList())
+    return store.dispatch(getHomeList(true))
 }
 
 const mapStateToProps = state => ({
