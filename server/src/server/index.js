@@ -18,7 +18,7 @@ app.use('/users',proxy('https://api.github.com',{//把node server 当做中间�
 // 虚拟dom原理=>虚拟dom是真实dom的一个js对象映射
 
 app.get('*', function (req, res) {
-    const store = getStore();
+    const store = getStore(req);
     //根据路由的路径,来往store里面加数据
     const matchedRoutes = matchRoutes(routes, req.path)
     //让matchRoutes中所有的组件,对应的loadData方法执行一次

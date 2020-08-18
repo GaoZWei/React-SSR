@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Header from '../../components/Header'
 //同构:一套react代码,在服务器端执行一次,在客户端执行一次
 import { connect } from 'react-redux'
 import { getHomeList } from './store/actions'
@@ -13,7 +12,6 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <Header />
                 {/* <div>hello Gaozw {this.props.name}</div> */}
                 {this.getList()}
                 <button onClick={() => {
@@ -25,14 +23,14 @@ class Home extends Component {
     componentDidMount() {
         //必须有,服务器渲染只是第一次!!!解决加载其他页,跳转的问题
         if (!this.props.list.length) {
-            this.props.getHomeList(false)
+            this.props.getHomeList()
         }
     }
 }
 
 Home.loadData = (store) => {
     //这个函数负责在服务器端渲染之前,把这个路由器需要的数据提前加载好
-    return store.dispatch(getHomeList(true))
+    return store.dispatch(getHomeList())
 }
 
 const mapStateToProps = state => ({

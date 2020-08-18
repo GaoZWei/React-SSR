@@ -5,6 +5,7 @@ import {
 import {
     renderToString
 } from 'react-dom/server'
+import { renderRoutes } from 'react-router-config'
 import { Provider } from 'react-redux'
 //作为模板渲染
 export const render = (store, routes, req) => {
@@ -13,8 +14,9 @@ export const render = (store, routes, req) => {
         <Provider store={store}>
             <StaticRouter location={req.path} context={{}}>
                 <div>
-                    {routes.map(route => (<Route {...route} /> //{}后面的是property属性,解构!!
-                    ))}
+                    {/* {routes.map(route => (<Route {...route} /> //{}后面的是property属性,解构!!
+                    ))} */}
+                    {renderRoutes(routes)}
                 </div>
             </StaticRouter>
         </Provider>

@@ -1,0 +1,10 @@
+1.刚进入页面,处于未登录状态
+2.用户点击登录按钮,进行登录操作
+  2.1浏览器发请求给node server
+  2.2转发给远程的Api server ,进行登录
+  2.3 api server 生成cookie
+  2.4 浏览器存在了cookie,登录成功
+3.当用户重新刷新页面
+ 3.1 浏览器请求html(携带了cookie)
+ 3.2 node server 进行服务器端渲染
+ 3.3.进行服务器端渲染,首先到api服务器取数据,没有携带cookie(proxy代理转发,没携带cookie)
