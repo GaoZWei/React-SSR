@@ -8,10 +8,10 @@ import routes from '../Routes'
 import { matchRoutes } from 'react-router-config'//匹配多层次路由
 const app = express()
 app.use(express.static('public')) //发现你请求静态文件(下面的index.js),从根目录public中找
-app.use('/users',proxy('https://api.github.com',{//把node server 当做中间层
-    proxyReqPathResolver:function(req){
+app.use('/users', proxy('https://api.github.com', {//把node server 当做中间层
+    proxyReqPathResolver: function (req) {
         // 课程中 return 'ssr/api'+req.url
-        return '/users'+req.url
+        return '/users' + req.url
     }
 }
 ))
@@ -26,14 +26,38 @@ app.get('*', function (req, res) {
     matchedRoutes.forEach(item => {
         // promise函数是异步的
         if (item.route.loadData) {
-            promises.push(item.route.loadData(store))//操作store函数!!!(本身就是异步的)
+            //页面要加载A,B,C,D四个组件,这四个组件都需要服务器端加载数据 promises=[A,B,C,D]
+            //A数据有误,会调用catch,外部promise成功的
+            const promise = new Promise((resolve, reject) => {
+                item.route.loadData(store).then(resolve).catch(resolve)//操作store函数!!!(本身就是异步的)
+            })//让外层Promise成功!!!
+            promises.push(promise)
         }
     })
+    //页面要加载A,B,C,D四个组件,这四个组件都需要服务器端加载数据 promises=[A,B,C,D]
+    //假设A错误,BCD几种情况
+    //1.BCD已经加载完成了
+    //2.BCD接口慢,BCD没有加载完成,pending,store中就没有数据了
+
     //等待所有的promise执行成功,再执行下面的
     Promise.all(promises).then(() => {
-    //渲染模板
-    res.send(render(store, routes, req))
+        const context = {};
+        const html = render(store, routes, req, context)
+        // 重定向时会自动帮你发现redirect (StaticRouter结合renderRoutes)
+        if (context.action == 'REPLACE') {//服务器端重定向301
+            res.redirect(301, context.url)
+        }
+        else if (context.NOT_FOUND) {
+            res.status(404)
+            res.send(html)
+        } else {
+            //渲染模板
+            res.send(html)
+        }
     })
+    // .catch(() => {
+    //     res.end('sorry,request error')
+    // })
 })
 
 app.listen(3000)

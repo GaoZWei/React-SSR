@@ -13,8 +13,8 @@ export const getHomeList = () => {
                 const list = res.data
                 dispatch(changeList(list))
             })//必须的有catch
-            .catch(err => {
-                console.log(err);
-            })
+            // .catch(err => {
+            //     console.log(err);
+            // })
     }
 }

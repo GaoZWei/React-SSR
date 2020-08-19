@@ -8,11 +8,11 @@ import {
 import { renderRoutes } from 'react-router-config'
 import { Provider } from 'react-redux'
 //作为模板渲染
-export const render = (store, routes, req) => {
+export const render = (store, routes, req, context) => {
     const content = renderToString((
         //Static不会自动识别   //context数据传递
         <Provider store={store}>
-            <StaticRouter location={req.path} context={{}}>
+            <StaticRouter location={req.path} context={context}>
                 <div>
                     {/* {routes.map(route => (<Route {...route} /> //{}后面的是property属性,解构!!
                     ))} */}
