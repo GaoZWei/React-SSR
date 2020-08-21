@@ -21,9 +21,12 @@ export const render = (store, routes, req, context) => {
             </StaticRouter>
         </Provider>
     ))
-    //window.context 数据注水
+    const cssStr = context.css.length ? context.css.join('\n'):''
+    //window.context 数据注水 // 
     return `<html>
-    <head><title>React的SSR渲染</title></head>
+    <head><title>React的SSR渲染</title>
+    <style> ${cssStr}</style>
+    </head>
     <body>
         <div id='root'>${content}</div>
         <script>

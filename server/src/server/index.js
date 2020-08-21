@@ -41,7 +41,9 @@ app.get('*', function (req, res) {
 
     //等待所有的promise执行成功,再执行下面的
     Promise.all(promises).then(() => {
-        const context = {};
+        const context = {
+            css:[]
+        };
         const html = render(store, routes, req, context)
         // 重定向时会自动帮你发现redirect (StaticRouter结合renderRoutes)
         if (context.action == 'REPLACE') {//服务器端重定向301

@@ -2,11 +2,21 @@ import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { actions } from './store/index'
+import styles from './style.css'
+import withStyle from '../../withStyle' //高阶组件渲染!!!
 class Header extends Component {
+    // componentWillMount() {
+    //     if (this.props.staticContext) {
+    //         console.log(styles);
+    //         // this.props.staticContext.css.push(styles._getCss()) 假装实现
+    //         this.props.staticContext.css.push('.model{background: pink}')
+    //     }
+    // }
     render() {
         const { login, handleLogin, handleLogout } = this.props
         return (
-            <div>
+            // <div className={styles.model}> //下面假装成功
+            <div className="model"> 
                 <Link to='/'>首页</Link>
                 <br />
                 {
@@ -31,4 +41,5 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+// export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyle(Header,styles))  //这样渲染
