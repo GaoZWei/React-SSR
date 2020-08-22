@@ -6,21 +6,20 @@ import styles from './style.css'
 class Home extends Component {
     componentWillMount() {
         if (this.props.staticContext) {
-            // console.log(styles._getContent());
-            this.props.staticContext.css.push('body{background: green}.test {margin-top: 50px;background: red}')
+            // console.log(styles._get Content());
+            this.props.staticContext.css.push('.container1{margin-top:20px;margin-left:20px}.item{line-height:34px;font-size:16px;color:#666}')
         }
     }
     getList() {
         const { list } = this.props
         return list.map((item) => {
-            return <div key={item.id}> 登录名:{item.login} </div>
+            return <div key={item.id} className="item"> 登录名:{item.login} </div>
         })
     }
     render() {
         return (
-            // <div className={styles.model}>
-            <div className="test">
-                {/* <div>hello Gaozw {this.props.name}</div> */}
+            // <div className={styles.container}>
+            <div className="container1">
                 {this.getList()}
                 <button onClick={() => {
                     alert('click')

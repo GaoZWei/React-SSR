@@ -16,13 +16,11 @@ class Header extends Component {
         const { login, handleLogin, handleLogout } = this.props
         return (
             // <div className={styles.model}> //下面假装成功
-            <div className="model"> 
-                <Link to='/'>首页</Link>
-                <br />
+            <div className="container"> 
+                <Link to='/' className="item1">首页</Link>
                 {
-                    login ? <Fragment><div onClick={handleLogout}>退出</div><br /><Link to='/translation'>翻译列表</Link></Fragment> : <div onClick={handleLogin}>登录</div>
+                    login ? <Fragment><div onClick={handleLogout} className="item1">退出</div><Link to='/translation' className="item1">翻译列表</Link></Fragment> : <div onClick={handleLogin} className="item1">登录</div>
                 }
-                <br />
             </div>
         )
     }
