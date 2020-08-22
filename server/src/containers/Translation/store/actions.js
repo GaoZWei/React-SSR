@@ -6,7 +6,7 @@ const changeList = (list) => ({
 export const getTranslationList = () => {
     return (dispatch, getState, axiosInstance) => {
         // https://api.github.com/users/matz/followers?page=2 网站https://www.jianshu.com/p/4ffba1bc5b5d
-        return axiosInstance.get('/users/matz/followers?page=2')
+        return axiosInstance.get('/users/matz/followers?page=1')
             .then((res) => {
                 //判断是否是登录状态,手动设置为true
                 if (true) {

@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 //同构:一套react代码,在服务器端执行一次,在客户端执行一次
 import { connect } from 'react-redux'
+import { Helmet } from "react-helmet";
 import { getHomeList } from './store/actions'
 import styles from './style.css'
 class Home extends Component {
@@ -19,11 +20,17 @@ class Home extends Component {
     render() {
         return (
             // <div className={styles.container}>
-            <div className="container1">
-                {this.getList()}
-                <button onClick={() => {
-                    alert('click')
-                }}>click</button> </div>
+            <Fragment>
+                <Helmet>
+                    <title>这是gao的新闻页面--丰富多彩的资讯</title>
+                    <meta name="description" content="这是gao的新闻页面--丰富多彩的资讯"/>
+                </Helmet>
+                <div className="container1">
+                    {this.getList()}
+                    <button onClick={() => {
+                        alert('click')
+                    }}>click</button> </div>
+            </Fragment>
         )
     }
     //只会客户端渲染会执行

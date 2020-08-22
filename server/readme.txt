@@ -4,3 +4,4 @@
 2.没解决cookie问题,和请求的接口有关
 3.config文件配置params,没用接口,但是目录结构的完整
 4.在css渲染时候getCss方法不好使,所以手动添加的样式,后来高阶组件封装实现了,只实现一处header
+5.因为没有cookie,所以每次重新刷新页面的时候只能是根路径开始服务器端渲染,不能直接translation服务器端渲染,如果直接进translation回到首页,但是如果是跳转到Translation就会不是服务器端渲染,所以title和meta不变

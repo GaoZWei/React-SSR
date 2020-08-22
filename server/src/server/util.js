@@ -1,10 +1,7 @@
 import React from 'react'
-import {
-    StaticRouter, Route
-} from 'react-router-dom'
-import {
-    renderToString
-} from 'react-dom/server'
+import { StaticRouter, Route } from 'react-router-dom'
+import { renderToString } from 'react-dom/server'
+import { Helmet } from "react-helmet";
 import { renderRoutes } from 'react-router-config'
 import { Provider } from 'react-redux'
 //作为模板渲染
@@ -21,10 +18,13 @@ export const render = (store, routes, req, context) => {
             </StaticRouter>
         </Provider>
     ))
-    const cssStr = context.css.length ? context.css.join('\n'):''
-    //window.context 数据注水 // 
+    const helmet = Helmet.renderStatic();//实现ssr的seo的title和meta设置
+    const cssStr = context.css.length ? context.css.join('\n') : ''
+    //window.context 数据注水 //   
     return `<html>
-    <head><title>React的SSR渲染</title>
+    <head>
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
     <style> ${cssStr}</style>
     </head>
     <body>
